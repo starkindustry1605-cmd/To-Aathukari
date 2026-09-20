@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 3rd Anniversary, My Love! ❤️</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        romantic: {
+                            bg: '#0d0714',
+                            dark: '#1e0a18',
+                            card: '#2d0c23',
+                            rose: '#f43f5e',
+                            pink: '#fda4af',
+                            gold: '#fbbf24',
+                            wine: '#881337'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        script: ['Great Vibes', 'cursive'],
+                        handwriting: ['Dancing Script', 'cursive'],
+                        sans: ['Plus Jakarta Sans', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="bg-[#0d0714] text-rose-50 antialiased selection:bg-rose-500 selection:text-white">
+
+    <!-- Background Interactive Particle Canvas (Floating Hearts & Petals) -->
+    <canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Floating Background Music Player Widget -->
+    <div class="fixed top-4 right-4 z-40 flex items-center gap-3 glass-card px-4 py-2 rounded-full border border-rose-400/30 shadow-2xl backdrop-blur-md">
+        <!-- Spinning Vinyl Disc -->
+        <div id="vinyl-disc" class="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-900 via-rose-950 to-black border border-rose-500/40 flex items-center justify-center shadow-inner">
+            <div class="w-2.5 h-2.5 rounded-full bg-rose-400 border border-white"></div>
+        </div>
+
+        <div class="hidden sm:block text-left">
+            <p id="music-status-text" class="text-xs font-semibold text-rose-200">Romantic Melody</p>
+            <p class="text-[10px] text-rose-400/80">Anniversary Soundtrack</p>
+        </div>
+
+        <!-- Play/Pause Toggle -->
+        <button id="music-toggle-btn" class="p-1.5 rounded-full bg-rose-600/30 hover:bg-rose-600/60 border border-rose-400/40 transition-colors" title="Toggle Music">
+            <span id="music-icon">
+                <svg class="w-4 h-4 text-rose-300" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+        </button>
+
+        <!-- Volume Slider -->
+        <input id="music-volume-slider" type="range" min="0" max="100" value="40" class="w-16 accent-rose-500 cursor-pointer hidden md:block">
+    </div>
+
+    <!-- Discrete Live Settings / Customizer Button -->
+    <button id="settings-open-btn" class="fixed bottom-4 right-4 z-40 p-3 rounded-full glass-card hover:border-rose-400/60 text-rose-300 hover:text-white transition-all shadow-xl hover:scale-110" title="Customize Names & Date">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+    </button>
+
+
+    <!-- =============================================================
+         🔐 1. ROMANTIC PASSCODE LOCK SCREEN GATE
+         ============================================================= -->
+    <div id="lock-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-[#0d0714] via-[#24061a] to-[#0a0312]">
+        <div id="lock-card" class="glass-card-glow w-full max-w-md p-8 md:p-10 rounded-3xl text-center relative overflow-hidden border border-rose-400/40 shadow-2xl">
+            
+            <!-- Floating Decorative Glow -->
+            <div class="absolute -top-12 -left-12 w-36 h-36 bg-rose-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -right-12 w-36 h-36 bg-pink-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Glowing Heart Badge -->
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-tr from-rose-600 to-pink-500 text-white shadow-[0_0_30px_rgba(244,63,94,0.6)] mb-6 animate-heartbeat">
+                <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+
+            <!-- Title & Romantic Subtitle -->
+            <p class="text-xs font-semibold uppercase tracking-widest text-rose-300 mb-1">
+                For The Love Of My Life
+            </p>
+            <h1 class="font-serif text-2xl md:text-3xl font-bold text-white mb-2 text-glow">
+                Happy 3rd Anniversary
+            </h1>
+            <p class="text-sm text-rose-200/80 mb-6 font-sans">
+                Enter our secret passcode to unlock 3 years of love, memories, and your special gifts ❤️
+            </p>
+
+            <!-- Passcode Input Form -->
+            <div class="space-y-4">
+                <div class="relative">
+                    <input id="passcode-input" type="password" placeholder="Enter secret passcode..." autocomplete="off" class="w-full px-5 py-3.5 rounded-2xl bg-black/40 border border-rose-400/40 text-center text-lg md:text-xl font-bold tracking-widest text-white placeholder:text-rose-300/40 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400 transition-all shadow-inner">
+                </div>
+
+                <!-- Error Message Banner -->
+                <div id="error-message" class="hidden text-xs text-rose-300 bg-rose-950/70 border border-rose-500/30 py-2 px-3 rounded-xl font-medium animate-fadeIn"></div>
+
+                <!-- Unlock Button -->
+                <button id="unlock-btn" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-base shadow-[0_0_25px_rgba(244,63,94,0.5)] hover:shadow-[0_0_35px_rgba(244,63,94,0.8)] transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-2">
+                    <span>Unlock Our World</span>
+                    <span>💖</span>
+                </button>
+
+                <!-- Hint Toggle -->
+                <div class="pt-2">
+                    <button id="hint-btn" type="button" class="text-xs text-rose-300/80 hover:text-rose-200 underline decoration-rose-400/40 transition-colors flex items-center justify-center gap-1 mx-auto">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <span>Need a hint, babe?</span>
+                    </button>
+
+                    <!-- Hint Box -->
+                    <div id="hint-box" class="hidden mt-3 p-3 rounded-xl bg-rose-950/60 border border-rose-400/20 text-xs text-rose-200">
+                        <p id="hint-text">Our date of birth ❤️</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-rose-500/20 text-[11px] text-rose-300/60">
+                Created with all my heart by <span class="dynamic-your-name text-rose-200 font-semibold">Sanjay</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =============================================================
+         💖 2. MAIN CELEBRATION EXPERIENCE (UNLOCKED REALM)
+         ============================================================= -->
+    <main id="main-content" class="hidden relative z-10 min-h-screen">
+        
+        <!-- =========================================================
+             HERO SECTION & LIVE RELATIONSHIP COUNTER
+             ========================================================= -->
+        <section class="min-h-[90vh] flex flex-col items-center justify-center text-center px-4 py-16 relative">
+            
+            <!-- Anniversary Ribbon Badge -->
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card border border-rose-400/30 text-rose-300 text-xs md:text-sm font-semibold tracking-wider uppercase mb-6 animate-pulse-glow">
+                <span>✨</span>
+                <span>Our 3rd Anniversary Celebration</span>
+                <span>✨</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-100 to-rose-300 text-glow leading-tight mb-4">
+                Happy 3rd Anniversary, <br class="hidden sm:inline">
+                <span class="font-script text-5xl sm:text-7xl md:text-8xl text-rose-400 dynamic-partner-name">My Love</span>! ❤️
+            </h1>
+
+            <p class="max-w-2xl text-base md:text-xl text-rose-200/90 font-light mb-12">
+                Three years of pure happiness, endless laughter, warm cuddles, and an unbreakable bond that grows deeper every single second.
+            </p>
+
+            <!-- Real-Time Live Counter Grid -->
+            <div class="w-full max-w-4xl glass-card p-6 md:p-8 rounded-3xl border border-rose-400/30 shadow-2xl backdrop-blur-lg mb-8">
+                <p class="text-xs md:text-sm font-semibold tracking-widest text-rose-300 uppercase mb-6">
+                    ⏳ We Have Been In Love For Exactly:
+                </p>
+
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+                    <!-- Years -->
+                    <div class="bg-black/40 border border-rose-400/20 p-3 md:p-4 rounded-2xl">
+                        <span id="counter-years" class="block text-2xl md:text-4xl font-extrabold text-white font-mono text-glow">3</span>
+                        <span class="text-[10px] md:text-xs text-rose-300 uppercase font-semibold">Years</span>
+                    </div>
+                    <!-- Months -->
+                    <div class="bg-black/40 border border-rose-400/20 p-3 md:p-4 rounded-2xl">
+                        <span id="counter-months" class="block text-2xl md:text-4xl font-extrabold text-white font-mono text-glow">0</span>
+                        <span class="text-[10px] md:text-xs text-rose-300 uppercase font-semibold">Months</span>
+                    </div>
+                    <!-- Days -->
+                    <div class="bg-black/40 border border-rose-400/20 p-3 md:p-4 rounded-2xl">
+                        <span id="counter-days" class="block text-2xl md:text-4xl font-extrabold text-white font-mono text-glow">0</span>
+                        <span class="text-[10px] md:text-xs text-rose-300 uppercase font-semibold">Days</span>
+                    </div>
+                    <!-- Hours -->
+                    <div class="bg-black/40 border border-rose-400/20 p-3 md:p-4 rounded-2xl">
+                        <span id="counter-hours" class="block text-2xl md:text-4xl font-extrabold text-white font-mono text-glow">00</span>
+                        <span class="text-[10px] md:text-xs text-rose-300 uppercase font-semibold">Hours</span>
+                    </div>
+                    <!-- Minutes -->
+                    <div class="bg-black/40 border border-rose-400/20 p-3 md:p-4 rounded-2xl">
+                        <span id="counter-minutes" class="block text-2xl md:text-4xl font-extrabold text-white font-mono text-glow">00</span>
+                        <span class="text-[10px] md:text-xs text-rose-300 uppercase font-semibold">Minutes</span>
+                    </div>
+                    <!-- Seconds -->
+                    <div class="bg-gradient-to-b from-rose-900/60 to-black/60 border border-rose-400/40 p-3 md:p-4 rounded-2xl shadow-lg">
+                        <span id="counter-seconds" class="block text-2xl md:text-4xl font-extrabold text-rose-400 font-mono animate-pulse">00</span>
+                        <span class="text-[10px] md:text-xs text-rose-200 uppercase font-semibold">Seconds</span>
+                    </div>
+                </div>
+
+                <!-- Sub-stats Bar -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-rose-400/20 text-xs md:text-sm">
+                    <div class="flex items-center justify-center gap-2 text-rose-200">
+                        <span>🗓️</span>
+                        <span>Total Days: <strong id="stat-total-days" class="text-white font-bold">1,095+ Days</strong></span>
+                    </div>
+                    <div class="flex items-center justify-center gap-2 text-rose-200">
+                        <span>⏰</span>
+                        <span>Total Hours: <strong id="stat-total-hours" class="text-white font-bold">26,000+ Hours</strong></span>
+                    </div>
+                    <div class="flex items-center justify-center gap-2 text-rose-200">
+                        <span>💓</span>
+                        <span>Heartbeats: <strong id="stat-heartbeats" class="text-white font-bold">118,000,000+</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <a href="#letter-section" class="mt-4 inline-flex flex-col items-center text-rose-300/70 hover:text-rose-200 transition-colors animate-bounce">
+                <span class="text-xs font-semibold mb-1">Open Your Love Letter & Gifts Below</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+            </a>
+        </section>
+
+
+        <!-- =========================================================
+             💌 3. INTERACTIVE WAX SEAL LOVE LETTER
+             ========================================================= -->
+        <section id="letter-section" class="py-20 px-4 max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-xs font-semibold uppercase tracking-widest text-rose-400">Written From The Soul</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mt-1">A Letter Just For You</h2>
+                <p class="text-sm text-rose-200/80 mt-2">Click the golden wax seal to unfold this parchment note ❤️</p>
+            </div>
+
+            <div class="envelope-wrapper">
+                <!-- 3D Antique Envelope -->
+                <div id="wax-envelope" class="envelope p-6">
+                    <div class="envelope-flap"></div>
+
+                    <!-- Wax Seal Button -->
+                    <button id="wax-seal-btn" class="wax-seal group" title="Click to break seal & open letter">
+                        <span class="text-white text-xl group-hover:scale-125 transition-transform">💌</span>
+                    </button>
+                </div>
+
+                <!-- Parchment Letter Paper -->
+                <div id="letter-paper" class="letter-paper p-8 md:p-12 mt-6">
+                    <div class="border border-rose-200/80 p-6 md:p-8 rounded-lg relative">
+                        
+                        <!-- Decorative Watermark Heart -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                            <span class="text-9xl text-rose-900">❤️</span>
+                        </div>
+
+                        <!-- Badge -->
+                        <div class="text-center mb-6">
+                            <span class="px-4 py-1 text-xs font-semibold uppercase tracking-wider text-rose-700 bg-rose-100 rounded-full border border-rose-300">
+                                3 Years Of Pure Magic • September 21, 2023 - 2026
+                            </span>
+                        </div>
+
+                        <!-- Salutation -->
+                        <h3 id="letter-salutation" class="font-handwriting text-3xl md:text-4xl text-rose-950 font-bold mb-6">
+                            To My Dearest Girlfriend,
+                        </h3>
+
+                        <!-- Letter Paragraphs -->
+                        <div id="letter-content-body" class="space-y-4">
+                            <!-- Injected dynamically via js/letter.js -->
+                        </div>
+
+                        <!-- Sign-off & Signature -->
+                        <div class="mt-8 pt-6 border-t border-rose-200 text-right">
+                            <p id="letter-signoff" class="text-base text-rose-900/80 font-serif italic">
+                                Forever & Always Yours,
+                            </p>
+                            <p id="letter-signature" class="font-handwriting text-3xl md:text-4xl text-rose-900 font-bold mt-1">
+                                Loveable KD ❤️
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================================
+             📸 4. CREATIVE ADMIRED PHOTO MEMORY WALL
+             ========================================================= -->
+        <section id="gallery-section" class="py-20 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-14">
+                <span class="px-4 py-1 text-xs font-bold uppercase tracking-widest text-amber-300 rounded-full bg-amber-950/80 border border-amber-400/30">
+                    ✨ Admired Moments & Memories ✨
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-white mt-3 text-glow">
+                    Moments I Treasure With You
+                </h2>
+                <p class="text-sm md:text-base text-rose-200/80 mt-2 max-w-xl mx-auto">
+                    Every smile, every glance, and every memory with you is a work of art I admire endlessly ❤️
+                </p>
+            </div>
+
+            <!-- Polaroid Grid -->
+            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                <!-- Injected via js/gallery.js -->
+            </div>
+        </section>
+
+
+        <!-- =========================================================
+             🎁 5. SURPRISE GIFTS WONDERLAND
+             ========================================================= -->
+        <section id="gifts-section" class="py-20 px-4 max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="px-4 py-1 text-xs font-bold uppercase tracking-widest text-rose-300 rounded-full bg-rose-950/80 border border-rose-500/30">
+                    Special Surprises
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl font-extrabold text-white mt-3 text-glow">
+                    Your 3rd Anniversary Gifts
+                </h2>
+                <p class="text-sm text-rose-200/80 mt-2">Special interactive surprises prepared with all my love 🎁</p>
+            </div>
+
+            <!-- Gift Tabs / Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                
+                <!-- GIFT 1: 3D MYSTERY GIFT BOX UNBOXING (SURPRISE OFFER) -->
+                <div class="glass-card p-8 rounded-3xl border border-rose-400/30 text-center flex flex-col justify-between items-center relative overflow-hidden">
+                    <div>
+                        <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-300 rounded-full bg-rose-950/80 border border-rose-500/30">
+                            Gift 1: Mystery Box
+                        </span>
+                        <h3 class="font-serif text-2xl font-bold text-white mt-3 mb-2">Unwrap Your Special Offer</h3>
+                        <p class="text-xs text-rose-200/80 mb-6">Click the glowing ribbon to unbox your surprise anniversary offer!</p>
+                    </div>
+
+                    <!-- 3D Gift Box Graphic -->
+                    <div id="mystery-gift-box" class="gift-box-3d my-4 group relative inline-block">
+                        <div class="w-36 h-36 bg-gradient-to-tr from-rose-700 via-pink-600 to-rose-500 rounded-2xl shadow-[0_15px_35px_rgba(244,63,94,0.5)] border border-rose-300/40 flex items-center justify-center relative">
+                            
+                            <!-- Ribbon Cross -->
+                            <div class="absolute inset-y-0 w-8 bg-amber-300/90 shadow-sm"></div>
+                            <div class="absolute inset-x-0 h-8 bg-amber-300/90 shadow-sm"></div>
+
+                            <!-- Box Lid -->
+                            <div class="gift-box-lid absolute -top-4 -inset-x-2 h-10 bg-gradient-to-r from-rose-800 to-rose-600 rounded-lg border-2 border-amber-300 flex items-center justify-center shadow-lg">
+                                <span class="text-amber-200 text-xl font-bold">🎀</span>
+                            </div>
+
+                            <span class="relative z-10 text-4xl group-hover:scale-110 transition-transform">🎁</span>
+                        </div>
+                    </div>
+
+                    <!-- Revealed Surprise Offer Card -->
+                    <div id="mystery-gift-reveal" class="hidden mt-4 p-6 rounded-3xl bg-gradient-to-br from-rose-950/95 via-purple-950/95 to-black/95 border-2 border-amber-300/60 shadow-[0_0_35px_rgba(251,191,36,0.3)] text-left w-full animate-fadeInScale">
+                        <div class="text-center mb-4">
+                            <span class="px-3 py-1 text-[11px] font-mono font-bold tracking-widest text-amber-300 uppercase bg-amber-950/80 border border-amber-400/40 rounded-full">
+                                👑 Anniversary Royal Pass 👑
+                            </span>
+                            <h4 class="font-serif text-xl font-bold text-white mt-2">The Ultimate Surprise Offer</h4>
+                        </div>
+
+                        <ul class="space-y-2.5 text-xs md:text-sm text-rose-100 font-medium">
+                            <li class="flex items-center gap-2">
+                                <span class="text-base">🛍️</span>
+                                <span><strong>Unlimited Shopping Spree</strong>: Pick whatever your heart loves!</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-base">🍽️</span>
+                                <span><strong>Special Romantic Dinner & Dessert Date</strong> on Loveable KD</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-base">🎁</span>
+                                <span><strong>Secret Handcrafted Anniversary Gift</strong> waiting for you</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-base">🛵</span>
+                                <span><strong>Long Ride & Stargazing Quality Time</strong> with endless cuddles</span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-4 pt-3 border-t border-rose-400/30 text-center">
+                            <span class="text-[11px] text-amber-300 font-mono tracking-wider">
+                                ✨ Valid for redemption immediately & honored forever! ❤️
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GIFT 2: FOREVER BLOOMING DIGITAL ROSE — Mun Andhi White Moonlight Theme -->
+                <div class="glass-card p-8 rounded-3xl border border-white/20 text-center flex flex-col justify-between items-center relative" style="background: linear-gradient(145deg, rgba(15,10,40,0.85) 0%, rgba(30,20,60,0.9) 100%); box-shadow: 0 0 40px rgba(200,190,255,0.15);">
+                    <div>
+                        <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-purple-200 rounded-full border border-purple-300/30" style="background: rgba(120,100,200,0.25);">
+                            Gift 2: A Never-Fading Rose
+                        </span>
+                        <h3 class="font-serif text-2xl font-bold mt-3 mb-1" style="color: #f0eeff; text-shadow: 0 0 20px rgba(180,160,255,0.6);">The Eternal Rose</h3>
+                        <p class="text-xs mb-5" style="color: rgba(220,210,255,0.7);">முன் அந்தி — A moonlit rose that blooms only for you, forever.</p>
+                    </div>
+
+                    <!-- Realistic White Moonlight Rose SVG -->
+                    <div class="my-2 relative">
+                        <svg id="animated-rose-svg" class="w-36 h-36 mx-auto" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <filter id="moonGlow">
+                                    <feGaussianBlur stdDeviation="3" result="blur"/>
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                                </filter>
+                                <filter id="softGlow">
+                                    <feGaussianBlur stdDeviation="2" result="blur"/>
+                                    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                </filter>
+                                <radialGradient id="petalGrad1" cx="50%" cy="40%" r="60%">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+                                    <stop offset="60%" stop-color="#e8e4f8" stop-opacity="0.95"/>
+                                    <stop offset="100%" stop-color="#c8c0e8" stop-opacity="0.8"/>
+                                </radialGradient>
+                                <radialGradient id="petalGrad2" cx="50%" cy="30%" r="65%">
+                                    <stop offset="0%" stop-color="#f8f6ff" stop-opacity="1"/>
+                                    <stop offset="70%" stop-color="#d8d0f0" stop-opacity="0.9"/>
+                                    <stop offset="100%" stop-color="#b8b0e0" stop-opacity="0.75"/>
+                                </radialGradient>
+                                <radialGradient id="centreGrad" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="#fff8ff" stop-opacity="1"/>
+                                    <stop offset="100%" stop-color="#d0c8f0" stop-opacity="0.9"/>
+                                </radialGradient>
+                                <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#5a8a5a"/>
+                                    <stop offset="50%" stop-color="#7ab87a"/>
+                                    <stop offset="100%" stop-color="#4a7a4a"/>
+                                </linearGradient>
+                                <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#6ab86a"/>
+                                    <stop offset="100%" stop-color="#3a7a3a"/>
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Outer glow aura -->
+                            <ellipse cx="60" cy="52" rx="30" ry="30" fill="rgba(200,190,255,0.08)" filter="url(#moonGlow)" class="rose-petal-anim"/>
+
+                            <!-- Back petals (layer 1) -->
+                            <path class="rose-petal-outer rose-petal-anim" d="M60 58 C38 38, 28 18, 46 8 C54 4, 62 10, 60 22 C66 10, 76 6, 82 12 C96 24, 82 44, 60 58 Z" fill="url(#petalGrad2)" stroke="rgba(200,190,240,0.4)" stroke-width="0.5" filter="url(#softGlow)"/>
+                            <path class="rose-petal-outer rose-petal-anim" d="M60 56 C34 52, 16 38, 22 20 C26 10, 38 8, 46 16 C40 8, 46 0, 56 4 C64 8, 64 22, 60 56 Z" fill="url(#petalGrad1)" stroke="rgba(200,190,240,0.35)" stroke-width="0.5"/>
+                            <path class="rose-petal-outer rose-petal-anim" d="M60 56 C86 52, 104 38, 98 20 C94 10, 82 8, 74 16 C80 8, 74 0, 64 4 C56 8, 56 22, 60 56 Z" fill="url(#petalGrad1)" stroke="rgba(200,190,240,0.35)" stroke-width="0.5"/>
+
+                            <!-- Mid petals (layer 2) -->
+                            <path class="rose-petal-inner rose-petal-anim" d="M60 54 C44 48, 32 32, 40 20 C46 12, 56 16, 60 28 C64 16, 74 12, 80 20 C88 32, 76 48, 60 54 Z" fill="url(#petalGrad2)" stroke="rgba(220,215,250,0.5)" stroke-width="0.4"/>
+                            <path class="rose-petal-inner rose-petal-anim" d="M60 54 C42 50, 30 62, 36 72 C40 78, 52 76, 60 66 C68 76, 80 78, 84 72 C90 62, 78 50, 60 54 Z" fill="url(#petalGrad1)" stroke="rgba(220,215,250,0.5)" stroke-width="0.4"/>
+
+                            <!-- Inner petals (layer 3) -->
+                            <path class="rose-petal-inner rose-petal-anim" d="M60 52 C50 44, 46 34, 52 26 C56 20, 62 22, 64 28 C68 22, 74 20, 78 28 C82 36, 72 46, 60 52 Z" fill="url(#centreGrad)" stroke="rgba(230,225,255,0.6)" stroke-width="0.4"/>
+                            <path class="rose-petal-inner rose-petal-anim" d="M60 52 C48 54, 42 64, 48 70 C52 74, 58 70, 60 64 C62 70, 68 74, 72 70 C78 64, 72 54, 60 52 Z" fill="url(#centreGrad)" stroke="rgba(230,225,255,0.6)" stroke-width="0.4"/>
+
+                            <!-- Rose heart centre -->
+                            <ellipse cx="60" cy="48" rx="7" ry="8" fill="url(#centreGrad)" stroke="rgba(240,235,255,0.8)" stroke-width="0.6" filter="url(#softGlow)"/>
+
+                            <!-- Dew drops -->
+                            <circle cx="45" cy="30" r="1.5" fill="rgba(255,255,255,0.9)" opacity="0.8"/>
+                            <circle cx="75" cy="28" r="1.2" fill="rgba(255,255,255,0.85)" opacity="0.7"/>
+                            <circle cx="60" cy="20" r="1" fill="rgba(255,255,255,0.95)" opacity="0.9"/>
+                            <circle cx="38" cy="50" r="0.8" fill="rgba(200,195,255,0.9)" opacity="0.8"/>
+
+                            <!-- Stem -->
+                            <path d="M60 78 Q56 98, 58 118" stroke="url(#stemGrad)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+                            <!-- Left leaf -->
+                            <path d="M58 95 Q42 88, 36 96 Q46 104, 56 98 Z" fill="url(#leafGrad)" stroke="rgba(100,180,100,0.4)" stroke-width="0.5"/>
+                            <!-- Leaf vein -->
+                            <path d="M56 98 Q46 93, 38 96" stroke="rgba(150,220,150,0.5)" stroke-width="0.6" fill="none"/>
+
+                            <!-- Right leaf -->
+                            <path d="M60 102 Q76 95, 82 103 Q72 111, 62 106 Z" fill="url(#leafGrad)" stroke="rgba(100,180,100,0.4)" stroke-width="0.5"/>
+                            <!-- Leaf vein -->
+                            <path d="M62 106 Q72 100, 80 103" stroke="rgba(150,220,150,0.5)" stroke-width="0.6" fill="none"/>
+
+                            <!-- Moonlight shimmer specks -->
+                            <circle cx="52" cy="42" r="0.6" fill="white" opacity="0.6"/>
+                            <circle cx="68" cy="38" r="0.5" fill="white" opacity="0.5"/>
+                            <circle cx="60" cy="35" r="0.7" fill="white" opacity="0.7"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <button id="bloom-rose-btn" class="px-6 py-2.5 rounded-full font-bold text-xs shadow-lg transition-all active:scale-95 flex items-center gap-2 mx-auto" style="background: linear-gradient(135deg, rgba(120,100,200,0.7), rgba(160,140,240,0.5)); border: 1px solid rgba(200,190,255,0.4); color: #f0eeff; box-shadow: 0 0 20px rgba(140,120,220,0.3);">
+                            <span>Bloom My Rose</span>
+                            <span>🌸</span>
+                        </button>
+
+                        <div id="rose-message" class="hidden mt-3 text-xs italic" style="color: rgba(220,210,255,0.85);">
+                            "முன் அந்தி நேரத்தில் — like the moonlight before dawn, my love for you is gentle, endless, and forever blooming."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GIFT 3: 3 DATE OPTIONS (SHE CHOOSES 1) -->
+            <div class="mb-16">
+                <div class="text-center mb-8">
+                    <span class="px-4 py-1 text-xs font-bold uppercase tracking-wider text-rose-300 rounded-full bg-rose-950/80 border border-rose-500/30">
+                        Gift 3: Date Selector
+                    </span>
+                    <h3 class="font-serif text-2xl md:text-3xl font-bold text-white mt-2">Choose Our Anniversary Date 💖</h3>
+                    <p class="text-xs md:text-sm text-rose-200/80 mt-1">Tap 1 of the 3 options below to choose what we will do together!</p>
+                </div>
+
+                <!-- Selection Confirmation Banner -->
+                <div id="coupon-selection-banner" class="hidden max-w-xl mx-auto mb-8 p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-rose-500/20 to-pink-500/20 border border-amber-300/50 text-center shadow-xl">
+                    <p class="text-amber-200 text-xs font-mono uppercase tracking-widest mb-1">🎉 Date Choice Confirmed! 🎉</p>
+                    <p class="text-white text-base font-bold">
+                        You picked: <span id="selected-date-text" class="text-amber-300"></span>
+                    </p>
+                    <p class="text-xs text-rose-200 mt-1">Loveable KD is ready to take you out on this magical experience! ❤️</p>
+                </div>
+
+                <!-- 3 Options Container -->
+                <div id="coupons-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Injected via js/gifts.js -->
+                </div>
+            </div>
+
+            <!-- GIFT 4: INTERACTIVE CANVAS SCRATCH-OFF CARD -->
+            <div class="glass-card p-8 md:p-10 rounded-3xl border border-rose-400/30 text-center max-w-xl mx-auto mb-16 shadow-2xl">
+                <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-300 rounded-full bg-rose-950/80 border border-rose-500/30">
+                    Gift 4: Scratch-Off Mystery
+                </span>
+                <h3 id="scratch-card-title" class="font-serif text-2xl font-bold text-white mt-3 mb-2">Secret Anniversary Promise</h3>
+                <p class="text-xs text-rose-200/80 mb-6">Scratch off the silver coating below with your finger or mouse! 🪙</p>
+
+                <div class="scratch-container relative w-full h-44 rounded-2xl overflow-hidden border-2 border-amber-300/40 shadow-inner bg-gradient-to-br from-rose-950 to-purple-950 flex items-center justify-center p-6">
+                    <!-- Hidden Secret Message Behind Foil -->
+                    <div class="relative z-0 text-center px-4">
+                        <p class="text-amber-300 text-xs font-mono uppercase tracking-widest mb-1">👑 Certified Love Promise 👑</p>
+                        <p id="scratch-secret-message" class="font-serif text-sm md:text-base text-rose-100 font-bold leading-relaxed">
+                            <!-- Injected dynamically -->
+                        </p>
+                        <p class="text-[10px] text-rose-300/60 mt-2 font-mono">CODE: ANNIVERSARY-YEAR-3-LOVE</p>
+                    </div>
+
+                    <!-- Canvas Foil Layer -->
+                    <canvas id="scratch-canvas" class="absolute inset-0 z-10 w-full h-full"></canvas>
+                </div>
+            </div>
+
+            <!-- GIFT 5: REASONS WHY I LOVE YOU JAR -->
+            <div class="glass-card p-8 md:p-10 rounded-3xl border border-rose-400/30 text-center max-w-xl mx-auto shadow-2xl">
+                <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-300 rounded-full bg-rose-950/80 border border-rose-500/30">
+                    Gift 5: Love Reason Jar
+                </span>
+                <h3 class="font-serif text-2xl font-bold text-white mt-3 mb-2">Why I Love You Jar</h3>
+                <p class="text-xs text-rose-200/80 mb-6">Click to draw a heart capsule and discover one of endless reasons why you mean the world to me.</p>
+
+                <!-- Jar Graphic -->
+                <div id="love-jar-graphic" class="inline-block p-4 rounded-3xl bg-black/40 border border-rose-400/30 mb-6 cursor-pointer hover:border-rose-400 transition-colors">
+                    <span class="text-6xl">🫙💖</span>
+                </div>
+
+                <div class="space-y-4">
+                    <button id="pull-reason-btn" class="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold text-sm shadow-[0_0_20px_rgba(244,63,94,0.5)] transition-all active:scale-95 flex items-center gap-2 mx-auto">
+                        <span>Draw A Love Capsule</span>
+                        <span>✨</span>
+                    </button>
+
+                    <!-- Reason Display Card -->
+                    <div id="reason-display-card" class="hidden p-5 rounded-2xl bg-gradient-to-tr from-rose-950/90 to-pink-950/90 border border-rose-400/40 text-center shadow-xl">
+                        <p id="reason-counter" class="text-[10px] font-mono tracking-widest text-rose-400 uppercase mb-2">Reason #1</p>
+                        <p id="reason-text" class="font-serif text-base md:text-lg text-white font-medium italic">
+                            <!-- Injected dynamically -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================================
+             🧩 7. COUPLES MEMORY MINI-QUIZ
+             ========================================================= -->
+        <section id="quiz-section" class="py-20 px-4 max-w-2xl mx-auto">
+            <div class="glass-card-glow p-8 md:p-10 rounded-3xl border border-rose-400/40 shadow-2xl text-center relative">
+                
+                <span id="quiz-progress-badge" class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-300 rounded-full bg-rose-950/80 border border-rose-500/30">
+                    Couple Memory Quiz
+                </span>
+
+                <!-- Active Question Container -->
+                <div id="quiz-question-container" class="mt-6">
+                    <h3 id="quiz-question-text" class="font-serif text-xl md:text-2xl font-bold text-white mb-6">
+                        <!-- Injected via js/quiz.js -->
+                    </h3>
+
+                    <!-- Options -->
+                    <div id="quiz-options-container" class="space-y-3 mb-6">
+                        <!-- Options injected -->
+                    </div>
+
+                    <!-- Feedback Note -->
+                    <div id="quiz-feedback-box" class="hidden p-4 rounded-xl bg-rose-950/80 border border-rose-400/30 text-xs md:text-sm text-rose-200 mb-4">
+                        <p id="quiz-feedback-note"></p>
+                    </div>
+
+                    <!-- Next Button -->
+                    <button id="quiz-next-btn" class="hidden px-6 py-2.5 rounded-full bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs shadow-lg transition-colors mx-auto">
+                        Next Question →
+                    </button>
+                </div>
+
+                <!-- Quiz Results Card (Initially hidden) -->
+                <div id="quiz-results-card" class="hidden mt-4 space-y-4">
+                    <span class="text-5xl">🏆❤️</span>
+                    <h3 class="font-serif text-2xl md:text-3xl font-bold text-white">Perfect 100% Match!</h3>
+                    <p class="text-sm text-rose-200">
+                        You know our love story by heart, my love! You are my forever soulmate.
+                    </p>
+                    <button id="quiz-restart-btn" class="px-5 py-2 text-xs font-semibold rounded-full bg-white/10 hover:bg-white/20 text-rose-300 transition-colors">
+                        Play Again 🔄
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================================
+             FOOTER
+             ========================================================= -->
+        <footer class="py-12 text-center text-rose-300/60 text-xs border-t border-rose-950/60">
+            <p class="mb-2">Made with all my heart and infinite love by <strong class="dynamic-your-name text-rose-200">Sanjay</strong> for <strong class="dynamic-partner-name text-rose-200">My Love</strong> ❤️</p>
+            <p>Celebrating 3 Magical Years • 2023 - 2026 & Forever Beyond</p>
+        </footer>
+    </main>
+
+
+    <!-- =============================================================
+         📸 LIGHTBOX MODAL FOR POLAROIDS
+         ============================================================= -->
+    <div id="lightbox-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/90 backdrop-blur-md p-4">
+        <button id="lightbox-close-btn" class="absolute top-6 right-6 text-white hover:text-rose-400 text-3xl font-bold z-50">
+            &times;
+        </button>
+
+        <button id="lightbox-prev-btn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl z-50">
+            &#10094;
+        </button>
+        <button id="lightbox-next-btn" class="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xl z-50">
+            &#10095;
+        </button>
+
+        <div class="max-w-3xl w-full bg-white p-4 md:p-6 rounded-2xl shadow-2xl text-center text-rose-950">
+            <img id="lightbox-image" src="" alt="Anniversary Memory" class="w-full max-h-[70vh] object-contain rounded-lg mb-4">
+            <p id="lightbox-caption" class="font-handwriting text-2xl md:text-3xl font-bold text-rose-900"></p>
+            <p id="lightbox-date" class="text-xs text-rose-600/80 font-sans mt-1"></p>
+        </div>
+    </div>
+
+
+    <!-- =============================================================
+         ⚙️ LIVE IN-BROWSER CUSTOMIZATION / SETTINGS MODAL
+         ============================================================= -->
+    <div id="settings-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="glass-card-glow w-full max-w-xl p-6 md:p-8 rounded-3xl border border-rose-400/40 text-left relative my-8 max-h-[90vh] overflow-y-auto">
+            
+            <button id="settings-close-btn" class="absolute top-5 right-5 text-rose-300 hover:text-white text-2xl font-bold">
+                &times;
+            </button>
+
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-2xl">⚙️</span>
+                <h3 class="font-serif text-2xl font-bold text-white">Customize Your Website</h3>
+            </div>
+
+            <div class="space-y-4 text-xs md:text-sm">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-rose-300 font-semibold mb-1">Your Name</label>
+                        <input id="setting-your-name" type="text" class="w-full px-3 py-2 rounded-xl bg-black/50 border border-rose-400/30 text-white focus:outline-none focus:border-rose-400">
+                    </div>
+                    <div>
+                        <label class="block text-rose-300 font-semibold mb-1">Girlfriend's Name / Nickname</label>
+                        <input id="setting-partner-name" type="text" class="w-full px-3 py-2 rounded-xl bg-black/50 border border-rose-400/30 text-white focus:outline-none focus:border-rose-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-rose-300 font-semibold mb-1">Anniversary Start Date</label>
+                        <input id="setting-anniversary-date" type="date" class="w-full px-3 py-2 rounded-xl bg-black/50 border border-rose-400/30 text-white focus:outline-none focus:border-rose-400">
+                    </div>
+                    <div>
+                        <label class="block text-rose-300 font-semibold mb-1">Lock Screen Passcode</label>
+                        <input id="setting-passcode" type="text" class="w-full px-3 py-2 rounded-xl bg-black/50 border border-rose-400/30 text-white focus:outline-none focus:border-rose-400">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-rose-300 font-semibold mb-1">Passcode Hint</label>
+                    <input id="setting-passcode-hint" type="text" class="w-full px-3 py-2 rounded-xl bg-black/50 border border-rose-400/30 text-white focus:outline-none focus:border-rose-400">
+                </div>
+
+                <div>
+                    <label class="block text-rose-300 font-semibold mb-1">Love Letter Text (Separate paragraphs with blank lines)</label>
+                    <textarea id="setting-love-letter" rows="5" class="w-full px-3 py-2 rounded-xl bg-black/50 border border-rose-400/30 text-white focus:outline-none focus:border-rose-400 font-sans"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-rose-300 font-semibold mb-1">Scratch-Off Card Secret Message</label>
+                    <input id="setting-scratch-msg" type="text" class="w-full px-3 py-2 rounded-xl bg-black/50 border border-rose-400/30 text-white focus:outline-none focus:border-rose-400">
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-between mt-8 pt-4 border-t border-rose-500/20">
+                <button id="settings-reset-btn" type="button" class="text-xs text-rose-400 hover:text-rose-200 underline">
+                    Reset to Defaults
+                </button>
+
+                <button id="settings-save-btn" type="button" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold text-xs shadow-lg transition-all">
+                    Save Changes 💾
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =============================================================
+         SCRIPTS INCLUSION
+         ============================================================= -->
+    <script src="js/config.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/lockscreen.js"></script>
+    <script src="js/counter.js"></script>
+    <script src="js/timeline.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/letter.js"></script>
+    <script src="js/gifts.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
