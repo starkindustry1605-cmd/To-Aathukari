@@ -1,0 +1,261 @@
+/* ===================================================================
+   💖 ROMANTIC ANNIVERSARY THEME & GLASSMORPHISM STYLES
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --color-romantic-bg: #0d0714;
+    --color-rose-deep: #4c0519;
+    --color-rose-primary: #f43f5e;
+    --color-rose-light: #fda4af;
+    --color-gold-accent: #fbbf24;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-script: 'Great Vibes', cursive;
+    --font-handwriting: 'Dancing Script', cursive;
+    --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-romantic-bg);
+    color: #fdf2f8;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0d0714;
+}
+::-webkit-scrollbar-thumb {
+    background: #881337;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #be123c;
+}
+
+/* Typography Helpers */
+.font-serif {
+    font-family: var(--font-heading);
+}
+
+.font-script {
+    font-family: var(--font-script);
+}
+
+.font-handwriting {
+    font-family: var(--font-handwriting);
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+    background: rgba(30, 10, 24, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.5), 0 0 25px rgba(244, 63, 94, 0.1);
+}
+
+.glass-card-glow {
+    background: rgba(45, 12, 35, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(251, 113, 133, 0.35);
+    box-shadow: 0 0 35px rgba(244, 63, 94, 0.25), inset 0 0 15px rgba(251, 113, 133, 0.1);
+}
+
+/* Shimmer & Glow Effects */
+.text-glow {
+    text-shadow: 0 0 12px rgba(244, 63, 94, 0.6), 0 0 24px rgba(244, 63, 94, 0.3);
+}
+
+.gold-glow {
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.6), 0 0 24px rgba(251, 191, 36, 0.3);
+}
+
+/* Audio Player Rotating Vinyl */
+.spin-animation {
+    animation: spinVinyl 6s linear infinite;
+}
+
+@keyframes spinVinyl {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Polaroid Photo Styling */
+.polaroid-card {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(244, 63, 94, 0.15);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.polaroid-card:hover {
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(244, 63, 94, 0.4);
+    z-index: 30;
+}
+
+/* -------------------------------------------------------------
+ * 💌 3D WAX SEAL ENVELOPE STYLES
+ * ------------------------------------------------------------- */
+.envelope-wrapper {
+    perspective: 1200px;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.envelope {
+    position: relative;
+    background: #881337;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(251, 113, 133, 0.3);
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.6s ease;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 50% 55%, 100% 0);
+    background: linear-gradient(135deg, #9f1239, #881337);
+    border-bottom: 2px solid rgba(251, 113, 133, 0.4);
+    transform-origin: top;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+}
+
+.envelope.envelope-open .envelope-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+/* Wax Seal Button */
+.wax-seal {
+    width: 72px;
+    height: 72px;
+    background: radial-gradient(circle, #e11d48 0%, #881337 70%, #4c0519 100%);
+    border-radius: 50%;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6), 0 0 20px rgba(225, 29, 72, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    border: 2px solid #fb7185;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wax-seal:hover {
+    transform: scale(1.1);
+}
+
+.seal-break-animation {
+    animation: breakSeal 0.6s forwards;
+}
+
+@keyframes breakSeal {
+    0% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.25) rotate(10deg);
+        filter: brightness(1.3);
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Parchment Letter Paper */
+.letter-paper {
+    background: #fffdfa;
+    background-image: radial-gradient(#fde2e4 1px, transparent 0);
+    background-size: 24px 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    border: 1px solid #fecdd3;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.9s cubic-bezier(0.34, 1.25, 0.64, 1);
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    display: none;
+}
+
+.letter-paper.letter-slide-out {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* -------------------------------------------------------------
+ * 🎁 3D MYSTERY GIFT BOX
+ * ------------------------------------------------------------- */
+.gift-box-3d {
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+.gift-box-3d:hover {
+    transform: translateY(-8px) scale(1.03);
+}
+
+.gift-box-lid {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: top left;
+}
+
+.gift-box-3d.opened .gift-box-lid {
+    transform: translateY(-50px) rotate(-30deg) scale(0.9);
+    opacity: 0.8;
+}
+
+/* -------------------------------------------------------------
+ * 🌸 BLOOMING ROSE ANIMATION — Mun Andhi White Moonlight Theme
+ * ------------------------------------------------------------- */
+.rose-petal-anim {
+    transform-origin: center;
+    transition: transform 1.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1s ease, filter 1.2s ease;
+}
+
+.rose-blooming-animation .rose-petal-outer {
+    transform: scale(1.3) rotate(12deg);
+    filter: drop-shadow(0 0 8px rgba(220, 210, 255, 0.6));
+}
+.rose-blooming-animation .rose-petal-inner {
+    transform: scale(1.18) rotate(-8deg);
+    filter: drop-shadow(0 0 5px rgba(200, 195, 255, 0.5));
+}
+
+/* -------------------------------------------------------------
+ * 🪙 SCRATCH CARD STYLES
+ * ------------------------------------------------------------- */
+.scratch-container {
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+
+#scratch-canvas {
+    cursor: grab;
+}
+#scratch-canvas:active {
+    cursor: grabbing;
+}

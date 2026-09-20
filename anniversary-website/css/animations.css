@@ -1,0 +1,109 @@
+/* ===================================================================
+   ✨ ROMANTIC ANIMATIONS & TRANSITION KEYFRAMES
+   =================================================================== */
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    15% { transform: translateX(-12px) rotate(-2deg); }
+    30% { transform: translateX(10px) rotate(2deg); }
+    45% { transform: translateX(-8px) rotate(-1deg); }
+    60% { transform: translateX(6px) rotate(1deg); }
+    75% { transform: translateX(-4px); }
+}
+
+.shake-animation {
+    animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes unlockScale {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); filter: brightness(1.2); }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.animate-unlockScale {
+    animation: unlockScale 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeOutCurtain {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.96);
+        pointer-events: none;
+    }
+}
+
+.animate-fadeOutCurtain {
+    animation: fadeOutCurtain 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeInContent {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInContent {
+    animation: fadeInContent 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9) translateY(15px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-fadeInScale {
+    animation: fadeInScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes floatGentle {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.animate-float {
+    animation: floatGentle 4s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.15); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.18); }
+    70% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+    animation: heartbeat 2.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(244, 63, 94, 0.7), 0 0 50px rgba(251, 113, 133, 0.4);
+    }
+}
+
+.animate-pulse-glow {
+    animation: pulseGlow 3s infinite ease-in-out;
+}
